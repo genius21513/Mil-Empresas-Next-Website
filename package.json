@@ -1,0 +1,44 @@
+{
+  "name": "jobobox",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next build && next start",
+    "lint": "next lint",
+    "sass": "sass --watch public/assets/scss/style.scss:public/assets/css/style.css",
+    "export": "next export"
+  },
+  "dependencies": {
+    "@googlemaps/react-wrapper": "^1.1.35",
+    "@hookform/resolvers": "^2.9.10",
+    "@netlify/plugin-nextjs": "^4.29.4",
+    "@reduxjs/toolkit": "^1.9.0",
+    "axios": "^1.2.0",
+    "bootstrap-icons": "^1.10.2",
+    "fs": "^0.0.1-security",
+    "js-cookie": "^3.0.1",
+    "jwt-decode": "^3.1.2",
+    "jwt-encode": "^1.0.1",
+    "mongoose": "^6.6.1",
+    "next": "12.3.0",
+    "next-redux-wrapper": "^8.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.39.4",
+    "react-paginate": "^8.1.4",
+    "react-perfect-scrollbar": "^1.5.8",
+    "react-redux": "^8.0.5",
+    "react-select": "^5.7.0",
+    "react-spinners": "^0.13.6",
+    "react-toastify": "^9.1.1",
+    "sass": "^1.54.9",
+    "swiper": "^8.4.2",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "eslint": "8.23.1",
+    "eslint-config-next": "12.3.0"
+  }
+}

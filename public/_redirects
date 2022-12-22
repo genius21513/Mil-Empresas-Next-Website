@@ -1,0 +1,1 @@
+/api/* http://milempresas-env.eba-dydv263j.us-east-1.elasticbeanstalk.com/api/auth/:splat 200
