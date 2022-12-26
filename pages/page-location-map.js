@@ -73,7 +73,7 @@ const Map = ({ children, style, ...options }) => {
 };
 
 export default function LocationMap() {
-    const zoom = 14;
+    const zoom = 20;
     return (
         <Wrapper 
             // apiKey={API_KEY}
