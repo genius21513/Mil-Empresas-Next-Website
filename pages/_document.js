@@ -13,7 +13,6 @@ export default function Document() {
             </Head>
             <body>
                 <Main />                
-                <script async src={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&libraries=places`} />
                 <NextScript />
             </body>
         </Html>

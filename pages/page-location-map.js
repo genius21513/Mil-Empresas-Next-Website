@@ -31,7 +31,7 @@ const Map = ({ children, style, ...options }) => {
                 (
                     results,
                     status
-                ) => {     
+                ) => {                    
                     if (status === google.maps.places.PlacesServiceStatus.OK && results) {
                         for (let i = 0; i < results.length; i++) {
                             createMarker(results[i]);
@@ -44,7 +44,7 @@ const Map = ({ children, style, ...options }) => {
         }
     }, [map, query]);
 
-    function createMarker(place) {        
+    function createMarker(place) {
         if (!place.geometry || !place.geometry.location) return;
         const marker = new google.maps.Marker({
             map,
@@ -76,8 +76,9 @@ export default function LocationMap() {
     const zoom = 20;
     return (
         <Wrapper 
-            // apiKey={API_KEY}
+            apiKey={API_KEY}     
             render={render}
+            libraries={["places"]} 
         >
             <Map
                 // center={center}
