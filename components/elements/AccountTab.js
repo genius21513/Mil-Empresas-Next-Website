@@ -10,6 +10,7 @@ import { getByteObjFromFile } from "../../utils/clientUtil";
 import { updateUserFormResolver } from "../../utils/resolvers";
 import { Images } from "../../public/assets/imgs/images";
 import VInput from "./VInput";
+import Preloader from "./Preloader";
 
 const AccountTab = () => {
     const dispatch = useDispatch();
@@ -64,6 +65,7 @@ const AccountTab = () => {
             Alert.error('Update user failed.');
             console.log(err);
         }
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -87,6 +89,7 @@ const AccountTab = () => {
 
     return (
         <div className="profile-content">
+            <Preloader show={loading} />
             <div className="mt-35 mb-40 box-info-profie">
                 <div className="image-profile">
                     {
