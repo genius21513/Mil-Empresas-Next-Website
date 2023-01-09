@@ -6,9 +6,9 @@ const Preloader = ({ show = false }) => {
     return (
         <>
             {
-            show && <div className="loading-spinner h-full">
-                <BounceLoader color="#36d7b7" />
-            </div>
+                show && <div className="loading-spinner h-full">
+                    <BounceLoader color="#36d7b7" />
+                </div>
             }
         </>
     );

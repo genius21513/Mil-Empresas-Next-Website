@@ -37,9 +37,11 @@ const AccountTab = () => {
     const onSubmit = async (data) => {
         console.log('Saving...');
         setLoading(true);
+
         try {
             if (!avatar) {
                 Alert.info('No update.');
+                setLoading(false);
                 return;
             }
 
@@ -60,7 +62,6 @@ const AccountTab = () => {
 
             dispatch(updateUser(user));
             Alert.success('Update user successful.');
-
         } catch (err) {
             Alert.error('Update user failed.');
             console.log(err);
