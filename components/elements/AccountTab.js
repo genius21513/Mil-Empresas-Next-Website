@@ -94,14 +94,14 @@ const AccountTab = () => {
             <div className="mt-35 mb-40 box-info-profie">
                 <div className="image-profile">
                     {
-                        (!avatar && user && user.image) ?
-                            <img src={`data:${user.image.type};base64,${user.image.imageBase64}`} alt="milempresas.es" /> :
-                            <img src='/assets/imgs/avatar/avatar_128x.png' alt="milempresas.es" />
+                        (!avatar) ?
+                            (user && user.image) ?
+                                <img src={`data:${user.image.type};base64,${user.image.imageBase64}`} alt="milempresas.es" /> :
+                                <img src='/assets/imgs/avatar/avatar_128x.png' alt="milempresas.es" />
+                            :
+                            <img className="image-profile" src={`data:image;base64,${avatar.imageBase64}`} alt="milempresas.es" />
                     }
                 </div>
-                {
-                    avatar && <img className="image-profile" src={`data:image;base64,${avatar.imageBase64}`} alt="milempresas.es" />
-                }
                 <input className="hidden" type="file" name="myImage" onChange={uploadToClient} ref={ref} />
                 <a className="btn btn-apply" onClick={() => { ref.current.click() }}>Upload Avatar</a>
                 <a className="btn btn-link" onClick={clearImage}>Delete</a>
