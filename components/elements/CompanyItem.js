@@ -40,7 +40,7 @@ const Item = ({ type = 'grid', cols = defaultGridCols, showFavour = false, showD
 
     const favourHandler = async (cid, uid, company) => {
         setWaiting(true);
-        if(!Fav) {            
+        if (!Fav) {
             await userService.setFavourite(cid, uid)
                 .then(
                     async (res) => {
@@ -49,7 +49,7 @@ const Item = ({ type = 'grid', cols = defaultGridCols, showFavour = false, showD
                         Alert.success();
                     },
                     error => {
-                        Alert.error();                        
+                        Alert.error();
                     }
                 );
         } else {
@@ -72,15 +72,15 @@ const Item = ({ type = 'grid', cols = defaultGridCols, showFavour = false, showD
         userService.removeCompany(companyId)
             .then(
                 async (res) => {
-                return await userService.removeUserCompany(user.id, companyId)
-                    .then(
-                        res => {
-                            dispatch({ type: userConstants.COMPANY_DEL_SUCCESS, id: companyId });
-                            Alert.success('Remove company successful.');
-                        }
-                    )
+                    return await userService.removeUserCompany(user.id, companyId)
+                        .then(
+                            res => {
+                                dispatch({ type: userConstants.COMPANY_DEL_SUCCESS, id: companyId });
+                                Alert.success('Remove company successful.');
+                            }
+                        )
                 },
-                error => {          
+                error => {
                     Alert.error('Remove failed.');
                 }
             );
@@ -93,13 +93,12 @@ const Item = ({ type = 'grid', cols = defaultGridCols, showFavour = false, showD
     }
 
     return (
-        <div className={`ci-item ${type == 'grid'? 'cg-item' : 'cl-item'} col-xl-${type == 'grid'? cols : defaultListCols } col-lg-${type == 'grid'? cols : defaultListCols } col-md-6 col-sm-12 col-12 d-flex`}>            
-            <Preloader show={waiting} />
+        <div className={`ci-item ${type == 'grid' ? 'cg-item' : 'cl-item'} col-xl-${type == 'grid' ? cols : defaultListCols} col-lg-${type == 'grid' ? cols : defaultListCols} col-md-6 col-sm-12 col-12 d-flex`}>
             <div className="card-grid-2 hover-up">
                 <div className="card-grid-2-image-left head">
                     <>
                         {
-                            user && showFavour &&
+                            !waiting && user && showFavour &&
                             <span className="favourite cursor-pointer" onClick={() => favourHandler(data.id, user.id, data)}>
                                 {
                                     Fav ? <StarFill /> : <Star />
@@ -107,18 +106,18 @@ const Item = ({ type = 'grid', cols = defaultGridCols, showFavour = false, showD
                             </span>
                         }
                         {
-                            user && showDelete &&
+                            !waiting && user && showDelete &&
                             <span className="remove" onClick={() => removeFromUser(data.id)}>
                                 <DeleteIcon />
                             </span>
                         }
                     </>
-                    
+
                     <div className="image-box c-logo">
-                        {   
+                        {
                             data.image && data.image.imageBase64 ?
-                            <img src={`data:${data.image.type};base64,${data.image.imageBase64}`} alt="milempresas.es" /> :
-                            <img src="assets/imgs/template/default-company.jpg" alt="milempresas.es" />
+                                <img src={`data:${data.image.type};base64,${data.image.imageBase64}`} alt="milempresas.es" /> :
+                                <img src="assets/imgs/template/default-company.jpg" alt="milempresas.es" />
                         }
                     </div>
                 </div>
@@ -126,11 +125,11 @@ const Item = ({ type = 'grid', cols = defaultGridCols, showFavour = false, showD
                     <div className="card-block-info">
                         <h4 className="ci-title name-job">
                             {/* <a className="cursor-pointer" onClick={(e) => editCompany(e, data)}> */}
-                                {data.name}
+                            {data.name}
                             {/* </a> */}
                         </h4>
                         {
-                            type == 'list' && 
+                            type == 'list' &&
                             <div className="right-info">
                                 <span className="card-mail c-cinfo email mr-10">{data.email}</span>
                                 <span className="card-phone c-cinfo phone mr-10">{data.phone}</span>
@@ -144,13 +143,13 @@ const Item = ({ type = 'grid', cols = defaultGridCols, showFavour = false, showD
                             <div className="mt-5 ci-info">
                                 <span className="card-mail c-cinfo email">{data.email}</span> <br />
                                 <span className="card-phone c-cinfo phone">{data.phone}</span> <br />
-                                <a className="cursor-pointer" target="_blank" href={`/page-location-map?address=${data.address}&city=${data.city.city_name}&province=${data.province.province_name}`}> 
+                                <a className="cursor-pointer" target="_blank" href={`/page-location-map?address=${data.address}&city=${data.city.city_name}&province=${data.province.province_name}`}>
                                     <span className="card-location c-cinfo">{data.address}, {data.city.city_name}, {data.province.province_name}</span>
                                 </a>
                             </div>
-                        }                        
-                        <p className="ci-desc font-sm color-text-paragraph mt-15">                            
-                            { strTruncate(data.description, 100) }
+                        }
+                        <p className="ci-desc font-sm color-text-paragraph mt-15">
+                            {strTruncate(data.description, 100)}
                         </p>
                         <div className="ci-cats mt-30">
                             {
