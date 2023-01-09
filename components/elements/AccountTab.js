@@ -26,7 +26,7 @@ const AccountTab = () => {
 
     const [loading, setLoading] = useState(false);
     const { control, setValue, register, handleSubmit, reset, formState: { errors } } = useForm({
-        ...updateUserFormResolver,
+        // ...updateUserFormResolver,
         defaultValues: {
             username: "",
             // password: "", confirm_password: "" 

@@ -2,29 +2,29 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
 export const getCodeFormResolver = {
-    resolver: 
+    resolver:
         yupResolver(Yup.object().shape({
             username: Yup.string().required('Username is required')
-                        .max(20, 'Username must be at maximum 20 characters.'),
+                .max(20, 'Username must be at maximum 20 characters.'),
         }))
 }
 
 
 export const signInFormResolver = {
-    resolver: 
+    resolver:
         yupResolver(Yup.object().shape({
             username: Yup.string().required('Username is required')
-                    .max(20, 'Username must be at maximum 20 characters.'),
+                .max(20, 'Username must be at maximum 20 characters.'),
             password: Yup.string().required('Password is required')
-                    .transform(x => x === '' ? undefined : x)
-                    .concat(Yup.string().required('Password is required.'))
-                    .min(6, 'Password must be at least 6 characters.')
-                    .max(40, 'Password must be at maximum 40 characters.'),
+                .transform(x => x === '' ? undefined : x)
+                .concat(Yup.string().required('Password is required.'))
+                .min(6, 'Password must be at least 6 characters.')
+                .max(40, 'Password must be at maximum 40 characters.'),
         }))
 }
 
 export const signUpFormResolver = {
-    resolver: 
+    resolver:
         yupResolver(Yup.object().shape({
             username: Yup.string().required('Name is required.')
                 .max(20, 'Username must be at maximum 20 characters.'),
@@ -44,7 +44,7 @@ export const signUpFormResolver = {
 
 
 export const resetPasswordFormResolver = {
-    resolver: 
+    resolver:
         yupResolver(Yup.object().shape({
             username: Yup.string().required('Name is required.')
                 .max(20, 'Username must be at maximum 20 characters.'),
@@ -63,10 +63,10 @@ export const resetPasswordFormResolver = {
 
 
 export const updateUserFormResolver = {
-    resolver: 
+    resolver:
         yupResolver(Yup.object().shape({
             username: Yup.string().required('Name is required.')
-                .max(20, 'Username must be at maximum 20 characters.'),      
+                .max(20, 'Username must be at maximum 20 characters.'),
             password: Yup.string().transform(x => x === '' ? undefined : x)
                 .concat(Yup.string().required('Password is required.'))
                 .min(6, 'Password must be at least 6 characters.')
@@ -80,7 +80,7 @@ export const updateUserFormResolver = {
 
 
 export const addCompanyFormResolver = {
-    resolver: 
+    resolver:
         yupResolver(Yup.object().shape({
             name: Yup.string()
                 .required('Name is required.')
@@ -92,14 +92,14 @@ export const addCompanyFormResolver = {
                 .max(50, 'Email must be at maximum 50 characters.'),
             address: Yup.string()
                 .required('Address is required.'),
-            phone: Yup.string()             
+            phone: Yup.string()
                 .required('Phone is required.'),
             imageCompany: Yup.mixed()
                 .nullable()
                 .notRequired()
-                .test("FILE_FORMAT", "Uploaded file has unsupported format.", 
+                .test("FILE_FORMAT", "Uploaded file has unsupported format.",
                     value => value || (value && value.type && !value.type.match(/image\/(png|jpg|jpeg)/i))),
-            description: Yup.string()             
+            description: Yup.string()
                 .required('Description is required.')
                 .min(100, 'Minimal length 100.')
                 .max(255, 'Maximum length 255.'),
@@ -109,22 +109,22 @@ export const addCompanyFormResolver = {
 
 
 export const contactFormResolver = {
-    resolver: 
-        yupResolver(Yup.object().shape({                
+    resolver:
+        yupResolver(Yup.object().shape({
             name: Yup.string()
                 .required('Name is required.'),
-                // .min(10, 'Minimal length 10.'),            
+            // .min(10, 'Minimal length 10.'),            
             company: Yup.string()
                 .required('Company is required.'),
             phone: Yup.string()
-                .required('Phone is required.')            
+                .required('Phone is required.')
                 .max(20, 'Exceed phone maximum length 20.'),
             email: Yup.string()
                 .email('Email type is incorrect.')
                 .required('Email is required.'),
             description: Yup.string()
                 .required('Description is required.')
-                // .min(100, 'Minimal length 100.')
-                // .max(255, 'Maximum length 255.'),
+            // .min(100, 'Minimal length 100.')
+            // .max(255, 'Maximum length 255.'),
         }))
 }
