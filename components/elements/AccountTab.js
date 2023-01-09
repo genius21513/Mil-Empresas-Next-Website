@@ -32,19 +32,31 @@ const AccountTab = () => {
 
     const onSubmit = async (data) => {
         setLoading(true);
-        // send data.        
-        const { password } = data;
-        const sdata = { password, username: user.username, email: user.email };
+        const sdata = {
+            username: user.username,
+            email: user.email
+        };
 
-        // if (avatar) {
-        //     userService.uploadBase64(avatar)
-        //         .then(res => {
-        //             xdata.image_id = res.id;
-        //         })
-        //         .catch( err => Alert.error() );
-        // }
+        try {
+            if (avatar) {
+                userService.uploadBase64(avatar)
+                    .then(res => {
+                        avatar.id = res.id;
+                    });
 
-        dispatch(updateUser(sdata));
+                userService.update(user)
+                    .then(ruser => {
+                        Alert.success('Update user successful.');
+                        return 'success';
+                    })
+                user.image = avatar;
+                console.log('Will update.', user);
+                dispatch(updateUser(user));
+            }
+        } catch (err) {
+            Alert.error('Update user failed.');
+            console.log(err);
+        }
     }
 
     useEffect(() => {

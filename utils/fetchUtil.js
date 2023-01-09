@@ -3,20 +3,20 @@ import * as cookieUtil from "./cookieUtil";
 /***************************************************/
 export const authHeader = () => {
     const token = cookieUtil.getCookie(cookieUtil.server_token, null);
-    return {        
+    return {
         "server_cookie": token,
     }
 }
 
 export const postHeader = (data) => {
-    return {        
+    return {
         'Content-Length': JSON.stringify(data).length
     }
 }
 
 export const globalHeader = (data) => {
     return {
-        'Accept' : 'application/json',
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
     }
 }
@@ -32,13 +32,13 @@ export function handleResponse(response) {
         const error = response.statusText;
         return Promise.reject(error);
     }
-    
+
     return response.text().then(text => {
         return JSON.parse(text);
     })
 }
 
-export function messageHandleResponse(response) {    
+export function messageHandleResponse(response) {
     if (!response.ok) {
         return Promise.reject(response.statusText);
     }

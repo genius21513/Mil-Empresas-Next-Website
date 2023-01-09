@@ -15,29 +15,29 @@ export const signin = (credentials) => {
   return dispatch => {
     dispatch({ type: userConstants.LOGIN_REQUEST });
     userService.signin(credentials)
-      .then( s_user => {
+      .then(s_user => {
 
-          /*********************** Get auth and set cookie to browser */
-          const token = cookieUtil.getTokenFromCookie(cookieUtil.token_name, s_user.token);
-          const data = { token: token, name: s_user.username, id: s_user.id, }
-          const jwt = jwtencode(data, cookieUtil.secret);
-          cookieUtil.setCookie(cookieUtil.client_token, jwt);
-          cookieUtil.setCookie(cookieUtil.server_token, token);
-          // cookieUtil.setCookie(cookieUtil.token_name, token);    //default set
-          /************************ */
+        /*********************** Get auth and set cookie to browser */
+        const token = cookieUtil.getTokenFromCookie(cookieUtil.token_name, s_user.token);
+        const data = { token: token, name: s_user.username, id: s_user.id, }
+        const jwt = jwtencode(data, cookieUtil.secret);
+        cookieUtil.setCookie(cookieUtil.client_token, jwt);
+        cookieUtil.setCookie(cookieUtil.server_token, token);
+        // cookieUtil.setCookie(cookieUtil.token_name, token);    //default set
+        /************************ */
 
-          /*** Ntification and next */
-          Alert.success('Signin successful.')
-            .then(b => { 
-              Router.push('page-auth-profile'); 
-              dispatch({ type: userConstants.LOGIN_SUCCESS, auth: data });
-            });
-        },
-        error => {          
+        /*** Ntification and next */
+        Alert.success('Signin successful.')
+          .then(b => {
+            Router.push('page-auth-profile');
+            dispatch({ type: userConstants.LOGIN_SUCCESS, auth: data });
+          });
+      },
+        error => {
           Alert.error('Signin failed.');
         }
       )
-  };  
+  };
 }
 
 /* Logout action */
@@ -83,18 +83,11 @@ export const signout = (username) => {
 // }
 
 /* Update User */
-export const updateUser = (user) => (dispatch, getState) => {
-  return userService.update(user)
-    .then(
-      ruser => {
-        //add dispatch action
-        Alert.success('Update user successful.');
-        return 'success';
-      },
-      error => {
-        Alert.error('Update user failed.');
-        return 'error';
-      })
+export const updateUser = (user) => dispatch => {
+  dispatch({
+    type: userConstants.USER_UPDATE_SUCCESS,
+    user
+  });
 };
 
 /** Add company */
@@ -207,14 +200,14 @@ export const removeFavourite = (cid, uid) => {
 
 
 /* Reauthenticate from client cookie */
-export const reauthenticate = (data) => (dispatch) => {  
+export const reauthenticate = (data) => (dispatch) => {
   //or get from jwt token
   dispatch({ type: userConstants.REAUTHENTICATION, auth: data });
 };
 
 
 /******** check cookie for authentication */
-export const checkCookieForAuthentication = (store, ctx) => {  
+export const checkCookieForAuthentication = (store, ctx) => {
   if (!ctx) {
     // This is client side.
     const s_token = cookieUtil.getCookie(cookieUtil.server_token, null);
@@ -236,5 +229,5 @@ export const checkCookieForAuthentication = (store, ctx) => {
     // if (data && data.id) {
     //   ctx.store.dispatch(reauthenticate(data));
     // }
-  }  
+  }
 }

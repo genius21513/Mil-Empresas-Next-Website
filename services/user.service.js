@@ -29,9 +29,9 @@ export const userService = {
 function signin(user) {
     const requestOptions = {
         method: 'POST',
-        headers: {            
+        headers: {
             ...globalHeader(),
-            ...postHeader(user),            
+            ...postHeader(user),
         },
         // credentials: "same-origin",
         // credentials: "include",
@@ -43,7 +43,7 @@ function signin(user) {
 }
 
 /** Signout */
-function signout(username) {    
+function signout(username) {
     const requestOptions = {
         method: 'POST',
         headers: {
@@ -72,7 +72,7 @@ function getUserById(id) {
     };
 
     return fetch(`${baseURL}users/getUser/${id}`, requestOptions)
-            .then(handleResponse);
+        .then(handleResponse);
 }
 
 /** Signup */
@@ -94,10 +94,10 @@ function signup(user) {
 function update(user) {
     const requestOptions = {
         method: 'PATCH',
-        headers: { 
+        headers: {
             ...globalHeader(),
             ...authHeader(),
-            ...postHeader(user) 
+            ...postHeader(user)
         },
         body: JSON.stringify(user)
     };
@@ -139,9 +139,9 @@ function addUserCompany(data) {
 function getCompanyById(companyId) {
     const requestOptions = {
         method: 'GET',
-        headers: { 
+        headers: {
             ...globalHeader(),
-            ...authHeader(),    
+            ...authHeader(),
         }
     };
 
@@ -204,9 +204,9 @@ async function setFavourite(cid, uid) {
 
     const requestOptions = {
         method: 'POST',
-        headers: { 
+        headers: {
             ...globalHeader(),
-            ...authHeader(),  
+            ...authHeader(),
             ...postHeader(data)
         },
         body: JSON.stringify(data)
@@ -219,7 +219,7 @@ async function setFavourite(cid, uid) {
 function removeFavourite(cid, uid) {
     const requestOptions = {
         method: 'GET',
-        headers: { 
+        headers: {
             ...globalHeader(),
             ...authHeader(),
         },
@@ -233,7 +233,7 @@ function removeFavourite(cid, uid) {
 function sendMailCodeRecoveryPassword(user) {
     const requestOptions = {
         method: 'POST',
-        headers: { 
+        headers: {
             ...globalHeader(),
             ...authHeader(),
             ...postHeader(user)
@@ -242,14 +242,14 @@ function sendMailCodeRecoveryPassword(user) {
     };
 
     return fetch(`${baseURL}sendMailCodeRecoveryPassword`, requestOptions)
-            .then(messageHandleResponse);
+        .then(messageHandleResponse);
 }
 
 
 function recoveryPassword(user) {
     const requestOptions = {
         method: 'POST',
-        headers: { 
+        headers: {
             ...globalHeader(),
             ...postHeader(user)
         },
@@ -288,6 +288,6 @@ async function sendMail(data) {
     };
 
     return fetch(`${baseURL}users/postSendEmail`, requestOptions)
-            .then(messageHandleResponse);
+        .then(messageHandleResponse);
 }
 
