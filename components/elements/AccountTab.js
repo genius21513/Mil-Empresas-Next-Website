@@ -58,7 +58,7 @@ const AccountTab = () => {
 
             await userService.update(_up);
             user.image = avatar;
-            console.log('Will update.', user);
+            // console.log('Will update.', user);
 
             dispatch(updateUser(user));
             Alert.success('Update user successful.');
@@ -79,7 +79,7 @@ const AccountTab = () => {
 
     const clearImage = () => {
         ref.current.value = '';
-        setAvatar(null);
+        setAvatar(x => { return null });
     }
 
     useEffect(() => {
