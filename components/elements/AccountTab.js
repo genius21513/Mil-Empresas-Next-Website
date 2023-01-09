@@ -27,32 +27,38 @@ const AccountTab = () => {
     const [loading, setLoading] = useState(false);
     const { control, setValue, register, handleSubmit, reset, formState: { errors } } = useForm({
         ...updateUserFormResolver,
-        defaultValues: { username: "", password: "", confirm_password: "" }
+        defaultValues: {
+            username: "",
+            // password: "", confirm_password: "" 
+        }
     });
 
     const onSubmit = async (data) => {
         setLoading(true);
-        const sdata = {
-            username: user.username,
-            email: user.email
-        };
-
         try {
-            if (avatar) {
-                userService.uploadBase64(avatar)
-                    .then(res => {
-                        avatar.id = res.id;
-                    });
-
-                userService.update(user)
-                    .then(ruser => {
-                        Alert.success('Update user successful.');
-                        return 'success';
-                    })
-                user.image = avatar;
-                console.log('Will update.', user);
-                dispatch(updateUser(user));
+            if (!avatar) {
+                Alert.info('No update.');
+                return;
             }
+
+            const res = await userService.uploadBase64(avatar)
+            avatar.id = res.id;
+
+            const _up = {
+                username: user.username,
+                email: user.email,
+                image: {
+                    id: avatar.id
+                }
+            };
+
+            await userService.update(_up);
+            user.image = avatar;
+            console.log('Will update.', user);
+
+            dispatch(updateUser(user));
+            Alert.success('Update user successful.');
+
         } catch (err) {
             Alert.error('Update user failed.');
             console.log(err);
@@ -78,14 +84,12 @@ const AccountTab = () => {
         }
     });
 
-
-
     return (
         <div className="profile-content">
             <div className="mt-35 mb-40 box-info-profie">
                 <div className="image-profile">
                     {
-                        (user && user.image) ?
+                        (!avatar && user && user.image) ?
                             <img src={`data:${user.image.type};base64,${user.image.imageBase64}`} alt="milempresas.es" /> :
                             <img src='/assets/imgs/avatar/avatar_128x.png' alt="milempresas.es" />
                     }
@@ -123,7 +127,7 @@ const AccountTab = () => {
                             <input className="form-control" defaultValue={user && user.email} disabled readOnly />
                         </div>
 
-                        <Controller
+                        {/* <Controller
                             render={({ field }) =>
                                 <VInput
                                     label='Password *'
@@ -148,7 +152,8 @@ const AccountTab = () => {
                             }
                             name="confirm_password"
                             control={control}
-                        />
+                        /> */}
+
                         <div className="border-bottom pt-10 pb-10" />
                         <div className="box-button mt-15">
                             <button disabled={loading && 'disabled'} className="btn btn-apply-big font-md font-bold" type="submit">Save</button>
