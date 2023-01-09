@@ -5,16 +5,16 @@ import CompanyList from "../components/elements/CompanyList";
 import Preloader from "../components/elements/Preloader";
 import AccountTab from "../components/elements/AccountTab";
 import AddCompanyModal from "../components/elements/AddCompanyModal";
-import { wrapper }  from "../redux";
+import { wrapper } from "../redux";
 import PrivateRoute from "../components/routes/PrivateRoute";
 import Layout from "../components/layouts/Layout";
 
 export default function AuthProfile() {
     const router = useRouter();
-    const dispatch = useDispatch();    
+    const dispatch = useDispatch();
     const { auth } = useSelector(state => state);
-    const { user } = useSelector(state => state.user);    
-    const [activeIndex, setActiveIndex] = useState(1);    
+    const { user } = useSelector(state => state.user);
+    const [activeIndex, setActiveIndex] = useState(1);
     const { provinces, categories } = useSelector(state => state.data.data);
     const [pageData, setPageData] = useState({ categories, provinces });
     const [editCompany, setEditCompany] = useState(null);
@@ -22,7 +22,7 @@ export default function AuthProfile() {
     const myCompanies = user && user.companies && user.companies.length > 0 && user.companies.length;
     const myFavourites = user && user.favourites && user.favourites.length > 0 && user.favourites.length;
 
-    /***************** get profile */    
+    /***************** get profile */
     useEffect(() => {
         if (!auth.loggedIn) {
             router.push('page-signin');

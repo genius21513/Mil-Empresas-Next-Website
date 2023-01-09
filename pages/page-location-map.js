@@ -14,24 +14,24 @@ const Map = ({ children, style, ...options }) => {
     const [map, setMap] = React.useState();
     const query = useRouter().query;
     const { address, city, province } = query;
-    
+
     React.useEffect(() => {
-        if (ref.current && !map) {            
-            const map = new window.google.maps.Map(ref.current, {options});
+        if (ref.current && !map) {
+            const map = new window.google.maps.Map(ref.current, { options });
             setMap(map);
         }
     }, [ref, map]);
 
     useEffect(() => {
         if (city && map) {
-            const request = { query: `${address} ${city} ${province}`, fields: ["name", "geometry"],};
+            const request = { query: `${address} ${city} ${province}`, fields: ["name", "geometry"], };
             const service = new google.maps.places.PlacesService(map);
             service.findPlaceFromQuery(
                 request,
                 (
                     results,
                     status
-                ) => {                    
+                ) => {
                     if (status === google.maps.places.PlacesServiceStatus.OK && results) {
                         for (let i = 0; i < results.length; i++) {
                             createMarker(results[i]);
@@ -50,7 +50,7 @@ const Map = ({ children, style, ...options }) => {
             map,
             position: place.geometry.location,
         });
-        
+
         const infowindow = new google.maps.InfoWindow();
         google.maps.event.addListener(marker, "click", () => {
             infowindow.setContent(place.name || "");
@@ -75,10 +75,10 @@ const Map = ({ children, style, ...options }) => {
 export default function LocationMap() {
     const zoom = 20;
     return (
-        <Wrapper 
-            apiKey={API_KEY}     
+        <Wrapper
+            apiKey={API_KEY}
             render={render}
-            libraries={["places"]} 
+            libraries={["places"]}
         >
             <Map
                 // center={center}

@@ -16,7 +16,7 @@ const AccountTab = () => {
     const router = useRouter();
 
     const { user } = useSelector(state => state.user);
-    const [ avatar, setAvatar ]= useState(null);
+    const [avatar, setAvatar] = useState(null);
 
     const ref = useRef(null);
     const uploadToClient = async (event) => {
@@ -24,8 +24,8 @@ const AccountTab = () => {
         setAvatar(oj);
     };
 
-    const [ loading, setLoading ] = useState(false);
-    const { control, setValue, register, handleSubmit, reset, formState : { errors }} = useForm({ 
+    const [loading, setLoading] = useState(false);
+    const { control, setValue, register, handleSubmit, reset, formState: { errors } } = useForm({
         ...updateUserFormResolver,
         defaultValues: { username: "", password: "", confirm_password: "" }
     });
@@ -56,7 +56,7 @@ const AccountTab = () => {
     }, [user])
 
     const clearImage = () => {
-        ref.current.value = ''; 
+        ref.current.value = '';
         setAvatar(null);
     }
 
@@ -66,23 +66,23 @@ const AccountTab = () => {
         }
     });
 
-    
+
 
     return (
         <div className="profile-content">
             <div className="mt-35 mb-40 box-info-profie">
                 <div className="image-profile">
                     {
-                        (user && user.image)? 
-                        <img src={`data:${user.image.type};base64,${user.image.imageBase64}`} alt="milempresas.es" />:
-                        <img src='/assets/imgs/avatar/avatar_128x.png' alt="milempresas.es" />
+                        (user && user.image) ?
+                            <img src={`data:${user.image.type};base64,${user.image.imageBase64}`} alt="milempresas.es" /> :
+                            <img src='/assets/imgs/avatar/avatar_128x.png' alt="milempresas.es" />
                     }
                 </div>
                 {
                     avatar && <img className="image-profile" src={`data:image;base64,${avatar.imageBase64}`} alt="milempresas.es" />
                 }
-                <input className="hidden" type="file" name="myImage" onChange={uploadToClient} ref={ref}/>
-                <a className="btn btn-apply" onClick={() => { ref.current.click() } }>Upload Avatar</a>
+                <input className="hidden" type="file" name="myImage" onChange={uploadToClient} ref={ref} />
+                <a className="btn btn-apply" onClick={() => { ref.current.click() }}>Upload Avatar</a>
                 <a className="btn btn-link" onClick={clearImage}>Delete</a>
             </div>
             <div className="row form-contact">
@@ -103,12 +103,12 @@ const AccountTab = () => {
 
                         <div className="form-group">
                             <label className="form-label"> User Name </label>
-                            <input className="form-control" defaultValue={user && user.username} disabled readOnly />                            
+                            <input className="form-control" defaultValue={user && user.username} disabled readOnly />
                         </div>
 
                         <div className="form-group">
                             <label className="form-label"> Email </label>
-                            <input className="form-control" defaultValue={user && user.email} disabled readOnly />                            
+                            <input className="form-control" defaultValue={user && user.email} disabled readOnly />
                         </div>
 
                         <Controller
@@ -137,7 +137,7 @@ const AccountTab = () => {
                             name="confirm_password"
                             control={control}
                         />
-                        <div className="border-bottom pt-10 pb-10" />                                                        
+                        <div className="border-bottom pt-10 pb-10" />
                         <div className="box-button mt-15">
                             <button disabled={loading && 'disabled'} className="btn btn-apply-big font-md font-bold" type="submit">Save</button>
                         </div>
