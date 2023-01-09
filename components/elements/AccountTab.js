@@ -21,7 +21,7 @@ const AccountTab = () => {
     const ref = useRef(null);
     const uploadToClient = async (event) => {
         const oj = await getByteObjFromFile(event);
-        setAvatar(oj);
+        setAvatar(x => { return obj });
     };
 
     const [loading, setLoading] = useState(false);
@@ -34,6 +34,7 @@ const AccountTab = () => {
     });
 
     const onSubmit = async (data) => {
+        console.log('Saving...');
         setLoading(true);
         try {
             if (!avatar) {
