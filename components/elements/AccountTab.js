@@ -21,7 +21,7 @@ const AccountTab = () => {
     const ref = useRef(null);
     const uploadToClient = async (event) => {
         const oj = await getByteObjFromFile(event);
-        setAvatar(x => { return obj });
+        setAvatar(x => { return oj });
     };
 
     const [loading, setLoading] = useState(false);
